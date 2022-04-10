@@ -1,4 +1,5 @@
-﻿using HashShop.Models;
+﻿using HashShop.Dto.Checkout.Request;
+using HashShop.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HashShop.Api.Controllers
@@ -7,16 +8,19 @@ namespace HashShop.Api.Controllers
     [ApiController]
     public class CheckoutController : ControllerBase
     {
-        [HttpGet]
-        public StatusCodeResult Get()
+        private readonly IOrderProcess _processOrder;
+
+        public CheckoutController(IOrderProcess processOrder)
         {
-            return Ok();
+            _processOrder = processOrder;
         }
 
         [HttpPost]
-        public ObjectResult Post(ProductRequest request)
+        public ObjectResult Post(CheckoutRequest request)
         {
-            return new OkObjectResult(request);
+            var response = _processOrder.Execute(request);
+
+            return new OkObjectResult(response);
         }
     }
 }

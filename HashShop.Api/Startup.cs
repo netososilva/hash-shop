@@ -1,3 +1,7 @@
+using HashShop.Infrastructure;
+using HashShop.Infrastructure.Interfaces;
+using HashShop.Service;
+using HashShop.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +31,9 @@ namespace HashShop.Api
         {
             services.AddControllers();
             services.AddSwaggerGen();
+
+            services.AddScoped<IOrderProcess, OrderProcess>();
+            services.AddScoped<IProductDao, ProductDao>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
