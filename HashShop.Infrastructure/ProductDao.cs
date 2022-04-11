@@ -1,5 +1,6 @@
 ﻿using HashShop.Models;
 using HashShop.Service.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -10,9 +11,18 @@ namespace HashShop.Infrastructure
     {
         public IEnumerable<Product> GetAll()
         {
-            var productsFromDatabase = File.ReadAllText(@"products.json");
+            try
+            {
+                var productsFromDatabase = File.ReadAllText(@"Database/products.json");
 
-            return JsonSerializer.Deserialize<IEnumerable<Product>>(productsFromDatabase);
+                return JsonSerializer.Deserialize<IEnumerable<Product>>(productsFromDatabase);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                throw;
+            }
         }
     }
 }

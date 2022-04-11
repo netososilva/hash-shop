@@ -1,12 +1,10 @@
 ﻿using HashShop.Api.Controllers;
 using HashShop.Dto.Checkout.Request;
 using HashShop.Dto.Checkout.Response;
-using HashShop.Infrastructure;
-using HashShop.Infrastructure.Interfaces;
 using HashShop.Service;
+using HashShop.Test.Dao;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,36 +16,12 @@ namespace HashShop.Test.Flow
         [TestMethod]
         public void SimpleCheckoutTest()
         {
-            var products = new List<ProductRequestDto>();
+            CheckoutController controller = new CheckoutController(new OrderProcessService(new FakeProductDao(), new FakeDiscountDao()));
+            IActionResult objectResult = controller.Post(CreateSimpleRequest());
 
-            products.Add(new ProductRequestDto(1, 2));
-            
-            CheckoutRequest request = new CheckoutRequest();
-
-            request.Products = products;
-
-            CheckoutController controller = new CheckoutController(new OrderProcess(new ProductDao(), new DiscountDao()));
-            ObjectResult objectResult = controller.Post(request);
-
-            CheckoutResponse fakeResponse = new CheckoutResponse();
-            var productResponseList = new List<ProductResponseDto>();
-
-            productResponseList.Add(new ProductResponseDto
-            {
-                Id = 1,
-                Quantity = 2,
-                UnitAmount = 15157,
-                TotalAmount = 30314,
-                Discount = 0,
-                IsGift = false
-            });
-
-            fakeResponse.TotalDiscount = 0;
-            fakeResponse.TotalAmountWithDiscount = 30314;
-            fakeResponse.TotalAmount = 30314;
-            fakeResponse.Products = productResponseList;
-
-            var response = (CheckoutResponse) objectResult.Value;
+            var fakeResponse = CreateSimpleResponse();
+            var responseResult = (OkObjectResult) objectResult;
+            var response = (CheckoutResponse) responseResult.Value;
 
             Assert.IsNotNull(objectResult);
             Assert.AreEqual(fakeResponse.TotalDiscount, response.TotalDiscount);
@@ -58,6 +32,7 @@ namespace HashShop.Test.Flow
             {
                 var fakeResponseItem = fakeResponse.Products.FirstOrDefault(x => x.Id == item.Id);
 
+                Assert.IsNotNull(fakeResponseItem);
                 Assert.AreEqual(fakeResponseItem.Discount, item.Discount);
                 Assert.AreEqual(fakeResponseItem.UnitAmount, item.UnitAmount);
                 Assert.AreEqual(fakeResponseItem.TotalAmount, item.TotalAmount);
@@ -78,6 +53,31 @@ namespace HashShop.Test.Flow
         public void Rule4Test()
         {
             //Deverá existir apenas uma entrada de produto brinde no carrinho.
+        }
+
+        private CheckoutRequest CreateSimpleRequest()
+        {
+            CheckoutRequest request = new CheckoutRequest();
+            
+            var products = new List<ProductRequestDto>();
+
+            products.Add(new ProductRequestDto(1, 2));
+            request.Products = products;
+
+            return request;
+        }
+
+        private CheckoutResponse CreateSimpleResponse()
+        {
+            CheckoutResponse response = new CheckoutResponse();
+            
+            var productResponseList = new List<ProductResponseDto>();
+
+            productResponseList.Add(new ProductResponseDto(1, 2, 15157, 0, false));
+            
+            response.Products = productResponseList;
+            
+            return response;
         }
     }
 }

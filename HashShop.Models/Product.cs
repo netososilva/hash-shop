@@ -20,7 +20,7 @@ namespace HashShop.Models
         [JsonPropertyName("is_gift")]
         public bool IsGift { get; set; }
 
-        public override string ToString()
+        public string ToJson()
         {
             return JsonSerializer.Serialize(this);
         }

@@ -23,7 +23,7 @@
 	</ItemGroup>            
 
   <ItemGroup>
-    <None Update="products.json">
+    <None Update="Database\products.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

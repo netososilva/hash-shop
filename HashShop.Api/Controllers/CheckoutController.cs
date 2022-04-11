@@ -8,16 +8,19 @@ namespace HashShop.Api.Controllers
     [ApiController]
     public class CheckoutController : ControllerBase
     {
-        private readonly IOrderProcess _processOrder;
+        private readonly IOrderProcessService _processOrder;
 
-        public CheckoutController(IOrderProcess processOrder)
+        public CheckoutController(IOrderProcessService processOrder)
         {
             _processOrder = processOrder;
         }
 
         [HttpPost]
-        public ObjectResult Post(CheckoutRequest request)
+        public IActionResult Post(CheckoutRequest request)
         {
+            if (request == null || !request.IsValid)
+                return new BadRequestResult();
+
             var response = _processOrder.Execute(request);
 
             return new OkObjectResult(response);

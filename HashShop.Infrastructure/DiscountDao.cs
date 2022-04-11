@@ -7,11 +7,14 @@ namespace HashShop.Infrastructure
 {
     public class DiscountDao : IDiscountDao
     {
-        public float Get(int productId)
+        public DiscountDao()
         {
             AppContext.SetSwitch(
-                "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+                    "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+        }
 
+        public float Get(int productId)
+        {
             var channel = GrpcChannel.ForAddress("http://localhost:50051/");
             var client = new Discount.DiscountClient(channel);
             

@@ -4,6 +4,8 @@ namespace HashShop.Dto.Checkout.Request
 {
     public class CheckoutRequest
     {
-        public IEnumerable<ProductRequestDto> Products { get; set; }
+        public List<ProductRequestDto> Products { get; set; }
+
+        public bool IsValid => Products != null && Products.Count > 0;
     }
 }

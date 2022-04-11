@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace HashShop.Service
 {
-    public class OrderProcess : IOrderProcess
+    public class OrderProcessService : IOrderProcessService
     {
         private readonly IProductDao _productDao;
         private readonly IDiscountDao _discountDao;
 
-        public OrderProcess(IProductDao productDao, IDiscountDao discountDao)
+        public OrderProcessService(IProductDao productDao, IDiscountDao discountDao)
         {
             _productDao = productDao;
             _discountDao = discountDao;
@@ -26,21 +26,11 @@ namespace HashShop.Service
             foreach(var product in request.Products)
             {
                 var productFromDatabase = products.FirstOrDefault(x => x.Id == product.Id);
-                var productDto = new ProductResponseDto
-                {
-                    Id = product.Id,
-                    Discount = Convert.ToInt32(_discountDao.Get(product.Id) * (productFromDatabase.Amount * product.Quantity)),
-                    IsGift = productFromDatabase.IsGift,
-                    Quantity = product.Quantity,
-                    UnitAmount = productFromDatabase.Amount,
-                    TotalAmount = productFromDatabase.Amount * product.Quantity
-                };
-
+                var discount = _discountDao.Get(product.Id);
+                var productDto = new ProductResponseDto(product.Id, product.Quantity,
+                    productFromDatabase.Amount, discount, productFromDatabase.IsGift);
+                
                 response.Products.Add(productDto);
-
-                response.TotalDiscount += productDto.Discount;
-                response.TotalAmountWithDiscount += productDto.TotalAmount - productDto.Discount;
-                response.TotalAmount += productDto.TotalAmount;
             }
 
             return response;
