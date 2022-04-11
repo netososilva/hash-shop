@@ -2,9 +2,11 @@
 using HashShop.Dto.Checkout.Request;
 using HashShop.Dto.Checkout.Response;
 using HashShop.Infrastructure;
+using HashShop.Infrastructure.Interfaces;
 using HashShop.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,7 +26,7 @@ namespace HashShop.Test.Flow
 
             request.Products = products;
 
-            CheckoutController controller = new CheckoutController(new OrderProcess(new ProductDao()));
+            CheckoutController controller = new CheckoutController(new OrderProcess(new ProductDao(), new DiscountDao()));
             ObjectResult objectResult = controller.Post(request);
 
             CheckoutResponse fakeResponse = new CheckoutResponse();
@@ -64,20 +66,6 @@ namespace HashShop.Test.Flow
             }
         }
 
-        [TestMethod, Ignore]
-        public void Rule1Test() 
-        {
-            //Para cada produto você precisará calcular a porcentagem de desconto e isso deve ser feito consumindo um serviço gRPC fornecido por nós para auxiliar 
-            //no seu teste.Utilize a imagem Docker para subir esse serviço de desconto e o arquivo proto para gerar o cliente na
-            //linguagem escolhida.Você pode encontrar como gerar um cliente gRPC nas documentações oficiais da ferramenta e em outros guias encontrados na internet.
-        }
-        
-        [TestMethod, Ignore]
-        public void Rule2Test()
-        {
-            //Caso o serviço de desconto esteja indisponível o endpoint de carrinho deverá continuar funcionando porém não vai realizar o cálculo com desconto.
-        }
-        
         [TestMethod, Ignore]
         public void Rule3Test()
         {

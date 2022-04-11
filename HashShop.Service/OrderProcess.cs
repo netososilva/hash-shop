@@ -10,10 +10,12 @@ namespace HashShop.Service
     public class OrderProcess : IOrderProcess
     {
         private readonly IProductDao _productDao;
+        private readonly IDiscountDao _discountDao;
 
-        public OrderProcess(IProductDao productDao)
+        public OrderProcess(IProductDao productDao, IDiscountDao discountDao)
         {
             _productDao = productDao;
+            _discountDao = discountDao;
         }
 
         public CheckoutResponse Execute(CheckoutRequest request)
@@ -27,7 +29,7 @@ namespace HashShop.Service
                 var productDto = new ProductResponseDto
                 {
                     Id = product.Id,
-                    Discount = 0,
+                    Discount = Convert.ToInt32(_discountDao.Get(product.Id) * (productFromDatabase.Amount * product.Quantity)),
                     IsGift = productFromDatabase.IsGift,
                     Quantity = product.Quantity,
                     UnitAmount = productFromDatabase.Amount,
@@ -36,8 +38,8 @@ namespace HashShop.Service
 
                 response.Products.Add(productDto);
 
-                response.TotalDiscount = 0;
-                response.TotalAmountWithDiscount += productDto.TotalAmount;
+                response.TotalDiscount += productDto.Discount;
+                response.TotalAmountWithDiscount += productDto.TotalAmount - productDto.Discount;
                 response.TotalAmount += productDto.TotalAmount;
             }
 
