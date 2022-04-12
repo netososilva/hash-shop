@@ -7,8 +7,8 @@ namespace HashShop.Models.Dto.Checkout.Response
         public int Id { get; set; }
         public int Quantity { get; set; }
         public int UnitAmount { get; set; }
-        public int TotalAmount => UnitAmount * Quantity;
-        public int Discount { get; private set; }
+        public int TotalAmount { get; set; }
+        public int Discount { get; set; }
         public bool IsGift { get; set; }
 
         public ProductResponseDto()
@@ -16,23 +16,15 @@ namespace HashShop.Models.Dto.Checkout.Response
 
         }
 
-        public ProductResponseDto(int id, int quantity, int unitAmount, float discount, bool isGift)
+        public ProductResponseDto(int id, int quantity, int unitAmount, int totalAmount, 
+            int discount, bool isGift)
         {
             Id = id;
             Quantity = quantity;
             UnitAmount = unitAmount;
+            TotalAmount = totalAmount;
             IsGift = isGift;
-            Discount = GetDiscount(discount);
-        }
-
-        public void SetDiscount(float discount)
-        {
-            Discount = GetDiscount(discount);
-        }
-
-        private int GetDiscount(float discount)
-        {
-            return Convert.ToInt32(discount * UnitAmount * Quantity);
+            Discount = discount;
         }
     }
 }

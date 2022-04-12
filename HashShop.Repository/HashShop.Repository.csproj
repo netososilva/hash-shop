@@ -29,5 +29,9 @@
       <GrpcServices>Client</GrpcServices>
     </None>
   </ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Config\" />
+	</ItemGroup>
 
 </Project>

@@ -11,9 +11,13 @@ namespace HashShop.Models.Mapper
             foreach (var product in order.Products)
             {
                 response.Products.Add(new ProductResponseDto(product.Id, product.Quantity, product.UnitAmount,
-                    product.Discount, product.IsGift));
+                    product.TotalAmount, product.Discount, product.IsGift));
             }
 
+            response.TotalAmount = order.TotalAmount;
+            response.TotalDiscount = order.TotalDiscount;
+            response.TotalAmountWithDiscount = order.TotalAmountWithDiscount;
+            
             return response;
         }
     }

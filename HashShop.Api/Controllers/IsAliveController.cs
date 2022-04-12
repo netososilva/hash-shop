@@ -7,7 +7,7 @@ namespace HashShop.Api.Controllers
     public class IsAliveController : ControllerBase
     {
         [HttpGet]
-        public StatusCodeResult Get()
+        public IActionResult Get()
         {
             return Ok();
         }

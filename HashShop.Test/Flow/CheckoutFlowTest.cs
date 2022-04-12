@@ -65,9 +65,13 @@ namespace HashShop.Test.Flow
 
             var productResponseList = new List<ProductResponseDto>();
 
-            productResponseList.Add(new ProductResponseDto(1, 2, 15157, 0, false));
+            productResponseList.Add(new ProductResponseDto(1, 2, 15157, (15157 * 2),0, false));
+            productResponseList.Add(new ProductResponseDto(2, 1, 0, 0, 0, true));
 
             response.Products = productResponseList;
+            response.TotalAmountWithDiscount = (15157 * 2);
+            response.TotalAmount = (15157 * 2);
+            response.TotalDiscount = 0;
 
             return response;
         }

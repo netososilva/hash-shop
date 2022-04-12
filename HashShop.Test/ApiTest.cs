@@ -11,7 +11,7 @@ namespace HashShop.Test
         public void IsAliveTest()
         {
             IsAliveController controller = new IsAliveController();
-            StatusCodeResult statusCodeResult = controller.Get();
+            OkResult statusCodeResult = (OkResult) controller.Get();
 
             Assert.IsNotNull(statusCodeResult);
             Assert.AreEqual(statusCodeResult.StatusCode, 200);

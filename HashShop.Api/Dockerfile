@@ -5,6 +5,9 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+ENV DATABASE=Database/products.json
+ENV DISCOUNT_API_DATABASE=http://localhost:50051/
+
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY ["HashShop.Api/HashShop.Api.csproj", "HashShop.Api/"]

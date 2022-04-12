@@ -15,7 +15,7 @@ namespace HashShop.Infrastructure
 
         public float Get(int productId)
         {
-            var channel = GrpcChannel.ForAddress("http://localhost:50051/");
+            var channel = GrpcChannel.ForAddress(Environment.GetEnvironmentVariable("DISCOUNT_API_DATABASE"));
             var client = new Discount.DiscountClient(channel);
 
             try

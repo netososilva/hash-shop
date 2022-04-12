@@ -32,7 +32,7 @@ namespace HashShop.Test.Dao
         {
             return new Product
             {
-                Id = 1,
+                Id = 2,
                 Amount = 0,
                 Description = "A gift item for tests",
                 Title = "Gift item",

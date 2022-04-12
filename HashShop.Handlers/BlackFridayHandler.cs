@@ -10,6 +10,8 @@ namespace HashShop.Handlers
         private bool _isBlackFriday = true;
         private readonly IProductDao _productDao;
 
+        // TODO: tratar essa regra
+
         public BlackFridayHandler(IProductDao productDao)
         {
             _productDao = productDao;

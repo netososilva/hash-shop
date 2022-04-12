@@ -17,8 +17,8 @@ namespace HashShop.Repository
             try
             {
                 var appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                var productsFromDatabase = File.ReadAllText(Path.Combine(appPath, @"Database/products.json"));
-
+                var productsFromDatabase = File.ReadAllText(Path.Combine(appPath, Environment.GetEnvironmentVariable("DATABASE")));
+                
                 _products = JsonSerializer.Deserialize<IEnumerable<Product>>(productsFromDatabase);
             }
             catch (Exception ex)
