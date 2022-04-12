@@ -12,10 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HashShop.Dto\HashShop.Dto.csproj" />
-    <ProjectReference Include="..\HashShop.Infrastructure\HashShop.Infrastructure.csproj" />
+    <ProjectReference Include="..\HashShop.Handlers\HashShop.Handlers.csproj" />
     <ProjectReference Include="..\HashShop.Models\HashShop.Models.csproj" />
-    <ProjectReference Include="..\HashShop.Service\HashShop.Service.csproj" />
   </ItemGroup>
 
 

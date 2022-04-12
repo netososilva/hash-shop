@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HashShop.Infrastructure\HashShop.Infrastructure.csproj" />
+    <ProjectReference Include="..\HashShop.Models\HashShop.Models.csproj" />
+    <ProjectReference Include="..\HashShop.Repository\HashShop.Repository.csproj" />
   </ItemGroup>
 
 </Project>

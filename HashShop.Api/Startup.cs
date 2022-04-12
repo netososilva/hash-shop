@@ -31,10 +31,10 @@ namespace HashShop.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
+
                 SwaggerConfig.Configure(app);
             }
-                        
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

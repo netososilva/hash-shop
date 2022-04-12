@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HashShop.Dto.Checkout.Response
+namespace HashShop.Models.Dto.Checkout.Response
 {
     public class ProductResponseDto
     {

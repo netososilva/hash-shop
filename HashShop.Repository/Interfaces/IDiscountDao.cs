@@ -1,4 +1,4 @@
-﻿namespace HashShop.Infrastructure.Interfaces
+﻿namespace HashShop.Repository.Interfaces
 {
     public interface IDiscountDao
     {

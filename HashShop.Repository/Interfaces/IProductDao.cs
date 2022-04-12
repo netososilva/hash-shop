@@ -1,10 +1,11 @@
-﻿using HashShop.Models;
+﻿using HashShop.Models.Dao;
 using System.Collections.Generic;
 
-namespace HashShop.Service.Interfaces
+namespace HashShop.Repository.Interfaces
 {
     public interface IProductDao
     {
+        Product GetAGiftProduct();
         IEnumerable<Product> GetAll();
     }
 }

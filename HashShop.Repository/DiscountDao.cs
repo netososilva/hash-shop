@@ -1,6 +1,6 @@
 ﻿using Grpc.Net.Client;
 using GrpcDiscountClient;
-using HashShop.Infrastructure.Interfaces;
+using HashShop.Repository.Interfaces;
 using System;
 
 namespace HashShop.Infrastructure
@@ -17,7 +17,7 @@ namespace HashShop.Infrastructure
         {
             var channel = GrpcChannel.ForAddress("http://localhost:50051/");
             var client = new Discount.DiscountClient(channel);
-            
+
             try
             {
                 var reply = client.GetDiscount(new GetDiscountRequest { ProductID = productId });

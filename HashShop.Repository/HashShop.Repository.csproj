@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -14,8 +14,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HashShop.Handlers\HashShop.Handlers.csproj" />
     <ProjectReference Include="..\HashShop.Models\HashShop.Models.csproj" />
+  </ItemGroup>
+	
+	<ItemGroup>
+		<Protobuf Include="Protos\discount.proto" GrpcServices="Client" />
+	</ItemGroup>
+	
+	<ItemGroup>
+    <None Update="Database\products.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Protos\discount.proto">
+      <GrpcServices>Client</GrpcServices>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
-﻿using HashShop.Models;
-using HashShop.Service.Interfaces;
+﻿using HashShop.Models.Dao;
+using HashShop.Repository.Interfaces;
 using System.Collections.Generic;
 
 namespace HashShop.Test.Dao
@@ -25,6 +25,18 @@ namespace HashShop.Test.Dao
                     IsGift = false,
                     Title = "Test item 1"
                 }
+            };
+        }
+
+        public Product GetAGiftProduct()
+        {
+            return new Product
+            {
+                Id = 1,
+                Amount = 0,
+                Description = "A gift item for tests",
+                Title = "Gift item",
+                IsGift = true
             };
         }
     }

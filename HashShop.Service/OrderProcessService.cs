@@ -1,8 +1,5 @@
-﻿using HashShop.Dto.Checkout.Request;
-using HashShop.Dto.Checkout.Response;
-using HashShop.Infrastructure.Interfaces;
-using HashShop.Service.Interfaces;
-using System;
+﻿using HashShop.Models.Dto.Checkout.Request;
+using HashShop.Models.Dto.Checkout.Response;
 using System.Linq;
 
 namespace HashShop.Service
@@ -10,12 +7,10 @@ namespace HashShop.Service
     public class OrderProcessService : IOrderProcessService
     {
         private readonly IProductDao _productDao;
-        private readonly IDiscountDao _discountDao;
 
-        public OrderProcessService(IProductDao productDao, IDiscountDao discountDao)
+        public OrderProcessService(IProductDao productDao)
         {
             _productDao = productDao;
-            _discountDao = discountDao;
         }
 
         public CheckoutResponse Execute(CheckoutRequest request)
@@ -23,13 +18,12 @@ namespace HashShop.Service
             var response = new CheckoutResponse();
             var products = _productDao.GetAll();
 
-            foreach(var product in request.Products)
+            foreach (var product in request.Products)
             {
                 var productFromDatabase = products.FirstOrDefault(x => x.Id == product.Id);
-                var discount = _discountDao.Get(product.Id);
                 var productDto = new ProductResponseDto(product.Id, product.Quantity,
-                    productFromDatabase.Amount, discount, productFromDatabase.IsGift);
-                
+                    productFromDatabase.Amount, 0, productFromDatabase.IsGift);
+
                 response.Products.Add(productDto);
             }
 

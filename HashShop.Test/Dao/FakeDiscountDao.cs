@@ -1,4 +1,4 @@
-﻿using HashShop.Infrastructure.Interfaces;
+﻿using HashShop.Repository.Interfaces;
 
 namespace HashShop.Test.Dao
 {
