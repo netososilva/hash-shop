@@ -19,7 +19,7 @@ namespace HashShop.Test.Flow
         {
             CheckoutController controller = new CheckoutController(
                 new CheckoutBaseHandler(
-                    new OrderProcessHandler(new FakeProductDao()),
+                    new ProductRepositoryHandler(new FakeProductDao()),
                     new DiscountHandler(new FakeDiscountDao()),
                     new InvalidGiftHandler(),
                     new BlackFridayHandler(new FakeProductDao())));

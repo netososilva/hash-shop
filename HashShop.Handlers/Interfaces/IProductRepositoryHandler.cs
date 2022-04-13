@@ -2,7 +2,7 @@
 
 namespace HashShop.Handlers.Interfaces
 {
-    public interface IOrderProcessHandler : IHandler<Order>
+    public interface IProductRepositoryHandler : IHandler<Order>
     {
     }
 }

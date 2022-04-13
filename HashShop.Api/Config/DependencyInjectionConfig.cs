@@ -19,7 +19,7 @@ namespace HashShop.Api.Config
             services.AddScoped<ICheckoutBaseHandler, CheckoutBaseHandler>();
             services.AddScoped<IDiscountHandler, DiscountHandler>();
             services.AddScoped<IInvalidGiftHandler, InvalidGiftHandler>();
-            services.AddScoped<IOrderProcessHandler, OrderProcessHandler>();
+            services.AddScoped<IProductRepositoryHandler, ProductRepositoryHandler>();
         }
     }
 }

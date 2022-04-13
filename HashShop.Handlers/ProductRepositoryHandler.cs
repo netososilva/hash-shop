@@ -2,15 +2,16 @@
 using HashShop.Handlers.Interfaces;
 using HashShop.Models;
 using HashShop.Repository.Interfaces;
+using System;
 using System.Linq;
 
 namespace HashShop.Handlers
 {
-    public class OrderProcessHandler : BaseHandler<Order>, IOrderProcessHandler
+    public class ProductRepositoryHandler : BaseHandler<Order>, IProductRepositoryHandler
     {
         private readonly IProductDao _productDao;
 
-        public OrderProcessHandler(IProductDao productDao)
+        public ProductRepositoryHandler(IProductDao productDao)
         {
             _productDao = productDao;
         }
@@ -22,6 +23,9 @@ namespace HashShop.Handlers
             foreach (var product in request.Products)
             {
                 var productFromDatabase = products.FirstOrDefault(x => x.Id == product.Id);
+
+                if (productFromDatabase == null) 
+                    throw new ArgumentOutOfRangeException($"Product id {productFromDatabase.Id} not found");
 
                 product.IsGift = productFromDatabase.IsGift;
                 product.UnitAmount = productFromDatabase.Amount;

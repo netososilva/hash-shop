@@ -1,6 +1,7 @@
 ﻿using HashShop.Handlers.Interfaces;
 using HashShop.Models.Dto.Checkout.Request;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace HashShop.Api.Controllers
 {
@@ -18,12 +19,23 @@ namespace HashShop.Api.Controllers
         [HttpPost]
         public IActionResult Post(CheckoutRequest request)
         {
-            if (request == null || !request.IsValid)
+            if (request == null || request.IsInvalid)
                 return new BadRequestResult();
 
-            var response = _handler.Execute(request);
+            try
+            {
+                var response = _handler.Execute(request);
 
-            return new OkObjectResult(response);
+                return new OkObjectResult(response);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return new BadRequestObjectResult(ex);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

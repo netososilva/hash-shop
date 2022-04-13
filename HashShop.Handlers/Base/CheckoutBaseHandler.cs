@@ -7,12 +7,12 @@ namespace HashShop.Handlers.Base
 {
     public class CheckoutBaseHandler : ICheckoutBaseHandler
     {
-        private readonly IOrderProcessHandler _orderProcessHandler;
+        private readonly IProductRepositoryHandler _orderProcessHandler;
         private readonly IDiscountHandler _discountHandler;
         private readonly IInvalidGiftHandler _invalidGiftHandler;
         private readonly IBlackFridayHandler _blackFridayHandler;
 
-        public CheckoutBaseHandler(IOrderProcessHandler orderProcessHandler, IDiscountHandler discountHandler, 
+        public CheckoutBaseHandler(IProductRepositoryHandler orderProcessHandler, IDiscountHandler discountHandler, 
             IInvalidGiftHandler invalidGiftHandler, IBlackFridayHandler blackFridayHandler)
         {
             _orderProcessHandler = orderProcessHandler;
