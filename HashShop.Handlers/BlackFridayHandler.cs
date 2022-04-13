@@ -7,23 +7,22 @@ namespace HashShop.Handlers
 {
     public class BlackFridayHandler : BaseHandler<Order>, IBlackFridayHandler
     {
-        private bool _isBlackFriday = true;
         private readonly IProductDao _productDao;
+        private readonly ISpecialDateDao _specialDateDao;
 
-        // TODO: tratar essa regra
-
-        public BlackFridayHandler(IProductDao productDao)
+        public BlackFridayHandler(IProductDao productDao,
+            ISpecialDateDao specialDateDao)
         {
             _productDao = productDao;
+            _specialDateDao = specialDateDao;
         }
 
         public override void Handle(Order request)
         {
-            var giftProduct = _productDao
-                .GetAGiftProduct();
+            var giftProduct = _productDao.GetAGiftProduct();
 
-            if (_isBlackFriday) request.Products.Add(new ProductOrder(giftProduct.Id, 1, 0,
-                giftProduct.IsGift));
+            if (_specialDateDao.IsBlackFriday()) 
+                request.Products.Add(ProductOrder.CreateGiftProduct(giftProduct.Id));
 
             base.Handle(request);
         }

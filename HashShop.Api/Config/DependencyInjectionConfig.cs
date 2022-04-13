@@ -14,6 +14,7 @@ namespace HashShop.Api.Config
         {
             services.AddScoped<IDiscountDao, DiscountDao>();
             services.AddScoped<IProductDao, ProductDao>();
+            services.AddScoped<ISpecialDateDao, SpecialDateDao>();
 
             services.AddScoped<IBlackFridayHandler, BlackFridayHandler>();
             services.AddScoped<ICheckoutBaseHandler, CheckoutBaseHandler>();

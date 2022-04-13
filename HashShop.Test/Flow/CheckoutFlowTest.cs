@@ -15,14 +15,14 @@ namespace HashShop.Test.Flow
     public class CheckoutFlowTest
     {
         [TestMethod]
-        public void SimpleCheckoutTest()
+        public void CheckoutWithProductsWithouDiscountTest()
         {
             CheckoutController controller = new CheckoutController(
                 new CheckoutBaseHandler(
                     new ProductRepositoryHandler(new FakeProductDao()),
                     new DiscountHandler(new FakeDiscountDao()),
                     new InvalidGiftHandler(),
-                    new BlackFridayHandler(new FakeProductDao())));
+                    new BlackFridayHandler(new FakeProductDao(), new FakeSpecialDateDao())));
             IActionResult objectResult = controller.Post(CreateSimpleRequest());
 
             var fakeResponse = CreateSimpleResponse();
@@ -45,6 +45,75 @@ namespace HashShop.Test.Flow
                 Assert.AreEqual(fakeResponseItem.IsGift, item.IsGift);
                 Assert.AreEqual(fakeResponseItem.Quantity, item.Quantity);
             }
+        }
+
+        [TestMethod]
+        public void CheckoutWithProductsWithDiscountTest()
+        {
+            CheckoutController controller = new CheckoutController(
+                new CheckoutBaseHandler(
+                    new ProductRepositoryHandler(new FakeProductDao()),
+                    new DiscountHandler(new FakeDiscountDao()),
+                    new InvalidGiftHandler(),
+                    new BlackFridayHandler(new FakeProductDao(), new FakeSpecialDateDao())));
+            IActionResult objectResult = controller.Post(CreateSimpleRequest());
+
+            var fakeResponse = CreateSimpleResponse();
+            var responseResult = (OkObjectResult)objectResult;
+            var response = (CheckoutResponse)responseResult.Value;
+
+            Assert.IsNotNull(objectResult);
+            Assert.AreEqual(fakeResponse.TotalDiscount, response.TotalDiscount);
+            Assert.AreEqual(fakeResponse.TotalAmountWithDiscount, response.TotalAmountWithDiscount);
+            Assert.AreEqual(fakeResponse.TotalAmount, response.TotalAmount);
+
+            foreach (var item in response.Products)
+            {
+                var fakeResponseItem = fakeResponse.Products.FirstOrDefault(x => x.Id == item.Id);
+
+                Assert.IsNotNull(fakeResponseItem);
+                Assert.AreEqual(fakeResponseItem.Discount, item.Discount);
+                Assert.AreEqual(fakeResponseItem.UnitAmount, item.UnitAmount);
+                Assert.AreEqual(fakeResponseItem.TotalAmount, item.TotalAmount);
+                Assert.AreEqual(fakeResponseItem.IsGift, item.IsGift);
+                Assert.AreEqual(fakeResponseItem.Quantity, item.Quantity);
+            }
+        }
+
+        [TestMethod]
+        public void CheckoutInBlackFriday()
+        {
+            Assert.IsTrue(false);
+        }
+
+        [TestMethod]
+        public void CheckoutWithGiftProduct()
+        {
+            Assert.IsTrue(false);
+        }
+
+        [TestMethod]
+        public void CheckoutWithMoreThanOneGiftProduct()
+        {
+            Assert.IsTrue(false);
+        }
+
+        [TestMethod]
+        public void ErrorOnDiscountApiTest()
+        {
+            Assert.IsTrue(false);
+        }
+
+        [TestMethod]
+        public void MultipleInvalidProductsTest()
+        {
+            Assert.IsTrue(false);
+        }
+        
+        [TestMethod]
+        public void IntegratedTest()
+        {
+            Assert.IsTrue(false);
         }
 
         private CheckoutRequest CreateSimpleRequest()

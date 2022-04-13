@@ -5,8 +5,9 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-ENV DATABASE=Database/products.json
-ENV DISCOUNT_API_DATABASE=http://localhost:50051/
+ENV DATABASE="Database/products.json"
+ENV DISCOUNT_API_DATABASE="http://localhost:50051/"
+ENV BLACK_FRIDAY_DATE="04/15/2022" # MM/DD/YYYY
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src

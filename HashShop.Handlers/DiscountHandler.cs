@@ -2,6 +2,7 @@
 using HashShop.Handlers.Interfaces;
 using HashShop.Models;
 using HashShop.Repository.Interfaces;
+using System;
 
 namespace HashShop.Handlers
 {
@@ -18,7 +19,14 @@ namespace HashShop.Handlers
         {
             foreach (var product in request.Products)
             {
-                product.SetDiscount(_discountDao.Get(product.Id));
+                try
+                {
+                    product.SetDiscount(_discountDao.Get(product.Id));
+                }
+                catch (Exception ex)
+                {
+                    product.SetDiscount(0);
+                }
             }
 
             base.Handle(request);

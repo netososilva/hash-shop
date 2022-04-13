@@ -18,18 +18,9 @@ namespace HashShop.Infrastructure
             var channel = GrpcChannel.ForAddress(Environment.GetEnvironmentVariable("DISCOUNT_API_DATABASE"));
             var client = new Discount.DiscountClient(channel);
 
-            try
-            {
-                var reply = client.GetDiscount(new GetDiscountRequest { ProductID = productId });
+            var reply = client.GetDiscount(new GetDiscountRequest { ProductID = productId });
 
-                return reply.Percentage;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-                return 0;
-            }
+            return reply.Percentage;
         }
     }
 }

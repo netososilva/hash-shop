@@ -31,5 +31,10 @@ namespace HashShop.Models
             UnitAmount = unitAmount;
             IsGift = isGift;
         }
+
+        public static ProductOrder CreateGiftProduct(int id)
+        {
+            return new ProductOrder(id, 1, 0, true);
+        }
     }
 }
