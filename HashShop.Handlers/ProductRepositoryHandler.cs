@@ -25,9 +25,11 @@ namespace HashShop.Handlers
                 var productFromDatabase = products.FirstOrDefault(x => x.Id == product.Id);
 
                 if (productFromDatabase == null) 
-                    throw new ArgumentOutOfRangeException($"Product id {productFromDatabase.Id} not found");
+                    throw new ArgumentOutOfRangeException($"Product id {product.Id} not found");
 
-                product.IsGift = productFromDatabase.IsGift;
+                if (productFromDatabase.IsGift)
+                    throw new ArgumentOutOfRangeException("Invalid gift product");
+
                 product.UnitAmount = productFromDatabase.Amount;
             }
 

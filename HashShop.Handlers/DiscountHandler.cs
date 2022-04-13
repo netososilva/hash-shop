@@ -26,6 +26,8 @@ namespace HashShop.Handlers
                 catch (Exception ex)
                 {
                     product.SetDiscount(0);
+
+                    Console.WriteLine(ex.Message);
                 }
             }
 

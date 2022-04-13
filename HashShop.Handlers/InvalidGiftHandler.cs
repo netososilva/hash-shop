@@ -1,6 +1,7 @@
 ﻿using HashShop.Handlers.Base;
 using HashShop.Handlers.Interfaces;
 using HashShop.Models;
+using System;
 
 namespace HashShop.Handlers
 {
@@ -10,7 +11,9 @@ namespace HashShop.Handlers
         {
             foreach (var product in request.Products)
             {
-                if (product.IsGift) request.Products.Remove(product);
+                if (product.IsGift) 
+                    throw new ArgumentOutOfRangeException($"ID: {product.Id} are invalid, " +
+                        $"please try again without a gift product in your cart");
             }
 
             base.Handle(request);
