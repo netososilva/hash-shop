@@ -31,11 +31,9 @@ namespace HashShop.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-
-                SwaggerConfig.Configure(app);
             }
-
-            app.UseHttpsRedirection();
+            
+            SwaggerConfig.Configure(app);
 
             app.UseRouting();
 
