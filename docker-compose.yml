@@ -6,8 +6,8 @@ services:
       - "50051:50051"
     networks:
       - network-hash
-  hash-shop-pai:
-    image: hash-shop-api    
+  hash-shop-api:
+    image: netososilva/hash-shop-api    
     depends_on:
       - hash-discount-api
     networks:
