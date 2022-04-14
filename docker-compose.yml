@@ -1,17 +1,24 @@
 ﻿version: "3"
 services:
-  discount-api:
+  hash-discount-api:
     image: hashorg/hash-mock-discount-service
     ports:
       - "50051:50051"
-  app:
+    networks:
+      - network-hash
+  hash-shop-pai:
     image: hash-shop-api    
     depends_on:
-      - discount-api
+      - hash-discount-api
+    networks:
+      - network-hash
     ports:
       - "8080:80"
     environment:
       DATABASE: "Database/products.json"
-      DISCOUNT_API_DATABASE: "http://localhost:50051/"
+      DISCOUNT_API_DATABASE: "http://hash-discount-api:50051/"
       BLACK_FRIDAY_DATE: "04/15/2022"
 
+networks:
+  network-hash:
+    driver: bridge
