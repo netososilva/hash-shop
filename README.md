@@ -25,3 +25,8 @@ docker build -t hash-shop-api -f Dockerfile .
 docker-compose up
 ```
 - Não é preciso dizer que existe da dependência do Docker (https://www.docker.com/products/docker-desktop/)
+- Para testar a aplicação, basta abrir o link:
+```
+http://localhost:8080/swagger
+```
+- Divirta-se
